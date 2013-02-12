@@ -1,5 +1,5 @@
 k = 20;
-eta = 0.1;
+etas = [0.1 0.15 0.2 0.3 0.5];
 lambda = 0.2;
 
 % iterate over the files on disk once to find the max values of M and N
@@ -11,8 +11,12 @@ P = rand(N,k)*sqrt(R/k);
 Q = rand(M,k)*sqrt(R/k);
 
 errors = [];
-for i = 1:40
-    [P,Q] = sgd("ratings.train.txt",P,Q,eta,lambda);
-    errors = [errors;calculateError("ratings.val.txt",P,Q,lambda)];
+for eta = etas
+    E = [];
+    for i = 1:40
+        [P,Q] = sgd("ratings.train.txt",P,Q,eta,lambda);
+        E= [E,calculateError("ratings.val.txt",P,Q,lambda)];
+    end
+    errors = [errors;E];
 end
-errors
+save("errors.mat","errors");
