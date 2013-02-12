@@ -1,4 +1,4 @@
-function [M,N] = findMaxIndex(fname, maxM, maxN)
+function [N,M] = findMaxIndex(fname, maxN, maxM)
     M = maxM;
     N = maxN;
     fid = fopen (fname);

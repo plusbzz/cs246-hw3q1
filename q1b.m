@@ -1,18 +1,11 @@
 k = 20;
 max_r = 5;
+eta = 0.1;
+lambda = 0.1;
 
 % iterate over the files on disk once to find the max values of M and N
 
-[M,N] = findMaxIndex("ratings.train.txt",0,0);
-[M,N] = findMaxIndex("ratings.val.txt",M,N);
+%[N,M] = findMaxIndex("ratings.train.txt",0,0);
+%[N,M] = findMaxIndex("ratings.val.txt",N,M);
 
-% Initialize P and Q matrices
-P = rand(N,k)*sqrt(max_r/k);
-Q = rand(M,k)*sqrt(max_r/k);
-
-% Algorithm
-
-% Until convergence
-%  For each R_iu
-%   do a step
-
+[P,Q] = sgd("test.txt",eta,lambda,k,max_r,100,100);
