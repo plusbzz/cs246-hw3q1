@@ -1,5 +1,5 @@
 k = 20;
-etas = [0.1 0.15 0.2 0.3 0.5];
+etas = [0.01 0.03 0.1 0.3];
 lambda = 0.2;
 
 % iterate over the files on disk once to find the max values of M and N
