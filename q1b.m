@@ -13,7 +13,7 @@ Q = rand(M,k)*sqrt(R/k);
 
 errors = [];
 for i = 1:40
-    [P,Q,E] = sgd("ratings.train.txt",P,Q,eta,lambda);
-    errors = [errors;E];
+    [P,Q] = sgd("ratings.train.txt",P,Q,eta,lambda);
+    errors = [errors;calculateError("ratings.val.txt",P,Q)];
 end
 errors
