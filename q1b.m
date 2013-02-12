@@ -10,13 +10,22 @@ lambda = 0.2;
 P = rand(N,k)*sqrt(R/k);
 Q = rand(M,k)*sqrt(R/k);
 
-errors = [];
+errors_tr = [];
+errors_te = [];
+errors_to = [];
 for eta = etas
-    E = [];
+    E_train = [];
+    E_test  = [];
+    E_to    = [];
     for i = 1:40
-        [P,Q] = sgd("ratings.train.txt",P,Q,eta,lambda);
-        E= [E,calculateError("ratings.val.txt",P,Q,lambda)];
+        [P,Q,E_tr] = sgd("ratings.train.txt",P,Q,eta,lambda);
+        E_train= [E_train,E_tr];
+        E_te = calculateError("ratings.val.txt",P,Q,lambda); 
+        E_test = [E_test,E_te];
+        E_to = [E_to, E_tr + E_te + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2)]
     end
-    errors = [errors;E];
+    errors_tr = [errors_tr;E_train];
+    errors_te = [errors_te;E_test];
+    errors_to = [errors_to;E_to];
 end
-save("errors.mat","errors");
+save("results.mat");

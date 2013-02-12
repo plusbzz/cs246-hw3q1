@@ -1,8 +1,9 @@
-function [P,Q] = sgd(fname,P_init,Q_init,eta,lambda)
+function [P,Q,E] = sgd(fname,P_init,Q_init,eta,lambda)
     P = P_init;
     Q = Q_init;
     k = size(Q,2);
     fid = fopen (fname);
+    E = 0;
     while true
         [i,u,r] = readRatingLine(fid);
         if i == -1
@@ -16,6 +17,7 @@ function [P,Q] = sgd(fname,P_init,Q_init,eta,lambda)
         q_new = q + eta*(eps*p - lambda*q);
         P(i,:) = p_new;
         Q(i,:) = q_new;
+        E = E + (r - q_new*p_new')^2;
     end
     fclose(fid);       
 end
