@@ -1,12 +1,11 @@
-function [P,Q] = sgd(fname,eta,lambda,k,max_r,N,M)
-    P = rand(N,k)*sqrt(max_r/k);
-    Q = rand(M,k)*sqrt(max_r/k);
+function [P,Q] = sgd(fname,eta,lambda,k,R,N,M)
+    P = rand(N,k)*sqrt(R/k);
+    Q = rand(M,k)*sqrt(R/k);
 
     % Until convergence
-    %  For each R_iu
+    %  For each r_iu
     %   do a step
-    converged = false;
-    
+    converged = false;  
     do
         P_old = P;
         Q_old = Q;
@@ -24,13 +23,13 @@ function [P,Q] = sgd(fname,eta,lambda,k,max_r,N,M)
             P(i,:) = p + eta*(eps*q - lambda*p);
             Q(u,:) = q + eta*(eps*p - lambda*q);
         end
-        fclose(fid)
+        fclose(fid);
         % test for convergence
         errP = norm(P_old-P,"fro");
         errQ = norm(Q_old-Q,"fro");
-        errP + errQ
+        errP + errQ;
         if errP + errQ < 0.00005
             converged = true;
         end
-    until converged
+    until converged;
 end

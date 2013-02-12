@@ -1,6 +1,7 @@
-function [N,M] = findMaxIndex(fname, maxN, maxM)
+function [R,N,M] = findMaxIndex(fname, maxR, maxN, maxM)
     M = maxM;
     N = maxN;
+    R = maxR;
     fid = fopen (fname);
     while true
         [currN,currM,currR] = readRatingLine(fid);
@@ -13,6 +14,9 @@ function [N,M] = findMaxIndex(fname, maxN, maxM)
         if currM > M
             M = currM;
         end;          
+        if currR > R
+            R = currR;
+        end;
     end;
     fclose(fid);
 end
