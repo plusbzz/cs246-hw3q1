@@ -1,11 +1,9 @@
 k = 20;
+R = 5;
 etas = [0.01 0.03 0.1 0.3];
 lambda = 0.2;
-
-% iterate over the files on disk once to find the max values of M and N
-
-[R,N,M] = findMaxIndex("ratings.train.txt",0,0,0);
-[R,N,M] = findMaxIndex("ratings.val.txt",R,N,M);
+M = 100;
+N = 100;
 
 P = rand(N,k)*sqrt(R/k);
 Q = rand(M,k)*sqrt(R/k);
@@ -18,9 +16,9 @@ for eta = etas
     E_test  = [];
     E_to    = [];
     for i = 1:40
-        [P,Q,E_tr] = sgd("ratings.train.txt",P,Q,eta,lambda);
+        [P,Q,E_tr] = sgd("test.txt",P,Q,eta,lambda);
         E_train= [E_train,E_tr];
-        E_te = calculateError("ratings.val.txt",P,Q,lambda); 
+        E_te = calculateError("test.txt",P,Q,lambda); 
         E_test = [E_test,E_te];
         E = E_tr + E_te + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2)
         E_to = [E_to, E];
