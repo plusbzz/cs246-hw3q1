@@ -12,6 +12,6 @@ function E = calculateError(fname,P,Q,lambda)
         q = Q(u,1:k);
         E = E + (r - q*p')^2;
     end
-    E = E + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2);
+    E = E + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2)
     fclose(fid);       
 end
