@@ -7,9 +7,6 @@ lambda = 0.2;
 [R,N,M] = findMaxIndex("ratings.train.txt",0,0,0);
 [R,N,M] = findMaxIndex("ratings.val.txt",R,N,M);
 
-P = rand(N,k)*sqrt(R/k);
-Q = rand(M,k)*sqrt(R/k);
-
 errors_tr = [];
 errors_te = [];
 errors_to = [];
@@ -17,6 +14,8 @@ for eta = etas
     E_train = [];
     E_test  = [];
     E_to    = [];
+    P = rand(N,k)*sqrt(R/k);
+    Q = rand(M,k)*sqrt(R/k);
     for i = 1:40
         [P,Q,E_tr] = sgd("ratings.train.txt",P,Q,eta,lambda);
         E_train= [E_train,E_tr];

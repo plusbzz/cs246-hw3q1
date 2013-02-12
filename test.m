@@ -5,8 +5,6 @@ lambda = 0.2;
 M = 100;
 N = 100;
 
-P = rand(N,k)*sqrt(R/k);
-Q = rand(M,k)*sqrt(R/k);
 
 errors_tr = [];
 errors_te = [];
@@ -15,6 +13,8 @@ for eta = etas
     E_train = [];
     E_test  = [];
     E_to    = [];
+    P = rand(N,k)*sqrt(R/k);
+    Q = rand(M,k)*sqrt(R/k);
     for i = 1:40
         [P,Q,E_tr] = sgd("test.txt",P,Q,eta,lambda);
         E_train= [E_train,E_tr];
