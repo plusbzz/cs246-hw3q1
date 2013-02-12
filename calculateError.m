@@ -1,6 +1,7 @@
-function E = calculateError(fname,P,Q)
+function E = calculateError(fname,P,Q,lambda)
     fid = fopen (fname);
     E = 0;
+    k = size(Q,2);
     while true
         [i,u,r] = readRatingLine(fid);
         if i == -1

@@ -1,5 +1,4 @@
 k = 20;
-max_r = 5;
 eta = 0.1;
 lambda = 0.2;
 
