@@ -6,25 +6,10 @@ M = 100;
 N = 100;
 
 
-errors_tr = [];
-errors_te = [];
-errors_to = [];
+errors = [];
 for eta = etas
     E_train = [];
-    E_test  = [];
-    E_to    = [];
-    P = rand(N,k)*sqrt(R/k);
-    Q = rand(M,k)*sqrt(R/k);
-    for i = 1:40
-        [P,Q,E_tr] = sgd("test.txt",P,Q,eta,lambda);
-        E_train= [E_train,E_tr];
-        E_te = calculateError("test.txt",P,Q,lambda); 
-        E_test = [E_test,E_te];
-        E = E_tr + E_te + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2)
-        E_to = [E_to, E];
-    end
-    errors_tr = [errors_tr;E_train];
-    errors_te = [errors_te;E_test];
-    errors_to = [errors_to;E_to];
+    [P,Q,E_train,E] = sgd("test.txt",N,M,R,k,eta,lambda,40);
+    errors= [errors; E];
 end
-save("results.mat");
+save("results_test.mat");
