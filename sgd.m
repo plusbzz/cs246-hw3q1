@@ -1,10 +1,11 @@
 function [P,Q,E_train,E] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
+    fid = fopen(fname);
     P = rand(N,k)*sqrt(R/k);
     Q = rand(M,k)*sqrt(R/k);
     E_train = [];
     E = [];
-    for i = 1:max_iter    
-        fid = fopen(fname);
+    for i = 1:max_iter
+        frewind(fid);
         E_tr = 0;
         while true
             [i,u,r] = readRatingLine(fid);
@@ -25,6 +26,6 @@ function [P,Q,E_train,E] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
         E_curr = E_tr + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2); 
         E = [E, E_curr];
         [eta i E_curr]
-        fclose(fid);
     end
+    fclose(fid);
 end
