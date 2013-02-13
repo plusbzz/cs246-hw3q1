@@ -5,19 +5,14 @@ M = 100;
 N = 100;
 
 
-errors_tr = [];
-errors_te = [];
-errors_to = [];
+errors = [];
 for lambda = lambdas
     for k = 1:10
-        P = rand(N,k)*sqrt(R/k);
-        Q = rand(M,k)*sqrt(R/k);
-        for i = 1:40
-            [P,Q,E_tr] = sgd("test.txt",P,Q,eta,lambda);
-        end
-        E_te = calculateError("test.txt",P,Q,lambda); 
-        errors_tr = [errors_tr;lambda k E_tr];
-        errors_te = [errors_te;lambda k E_te];
+        [P,Q] = sgd("test.txt",N,M,R,k,eta,lambda,40);
+        E_tr = calculateError("test.txt",P,Q,lambda); 
+        E_te = calculateError("test.txt",P,Q,lambda);
+        [lambda k E_tr E_te]
+        errors = [errors;lambda k E_tr E_te];
     end
 end
 save("results_test.mat");
