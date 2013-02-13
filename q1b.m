@@ -13,4 +13,4 @@ for eta = etas
     [P,Q,E_train,E] = sgd("ratings.train.txt",N,M,R,k,eta,lambda,40);
     errors= [errors; E];
 end
-save("results_q1b.mat");
+save("results_q1b.mat","errors");
