@@ -20,10 +20,11 @@ function [P,Q,E_train,E] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
             P(i,:) = p_new;
             Q(i,:) = q_new;
             E_tr = E_tr + (r - q_new*p_new')^2;
-            [eta i E_tr]
         end
         E_train = [E_train,E_tr];
-        E = [E, E_tr + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2)];
+        E_curr = E_tr + lambda*(norm(P,"fro")^2 + norm(Q,"fro")^2); 
+        E = [E, E_curr];
+        [eta i E_curr]
         fclose(fid);
     end
 end
