@@ -16,4 +16,4 @@ for lambda = lambdas
         errors = [errors;lambda k E_tr E_te];
     end
 end
-save("results_q1c.mat");
+save("results_q1c.mat","errors");
