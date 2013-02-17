@@ -4,7 +4,7 @@ function [R,N,M] = findMaxIndex(fname, maxR, maxN, maxM)
     R = maxR;
     fid = fopen (fname);
     
-    bufferSize = 1e4; % scan through the file once
+    bufferSize = 3e4; % scan through the file once
     buffer = reshape(fscanf(fid, '%d\t%d\t%g', bufferSize),3,[])' ;
     while ~isempty(buffer)
         for ix = 1:size(buffer,1)
@@ -25,7 +25,7 @@ function [R,N,M] = findMaxIndex(fname, maxR, maxN, maxM)
                 R = currR;
             end;
         end
-        buffer = reshape(fscanf(fid, '%d\t%d', bufferSize),2,[])' ;
+        buffer = reshape(fscanf(fid, '%d\t%d\t%g', bufferSize),3,[])' ;
     end
     fclose(fid);
 end

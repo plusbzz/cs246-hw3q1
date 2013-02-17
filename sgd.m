@@ -1,10 +1,13 @@
-function [P,Q] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
+function [P,Q,E_train,E] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
     fid = fopen(fname);
     P = rand(N,k)*sqrt(R/k);
     Q = rand(M,k)*sqrt(R/k);
+    E_train = [];
+    E = [];
     for j = 1:max_iter
         frewind(fid);        
-        bufferSize = 1e4; % scan through the file once
+        E_tr = 0;
+        bufferSize = 3e4; % scan through the file once
         buffer = reshape(fscanf(fid, '%d\t%d\t%g', bufferSize),3,[])' ;
         while ~isempty(buffer)
             for ix = 1:size(buffer,1)
@@ -20,9 +23,13 @@ function [P,Q] = sgd(fname,N,M,R,k,eta,lambda,max_iter)
                 q_new = q + eta*(eps*p - lambda*q);
                 P(i,:) = p_new;
                 Q(i,:) = q_new;                         
+                E_tr = E_tr + (r - q_new*p_new')^2;
             end
-            buffer = reshape(fscanf(fid, '%d\t%d', bufferSize),2,[])' ;
+            buffer = reshape(fscanf(fid, '%d\t%d\t%g', bufferSize),3,[])' ;
         end
+        E_train = [E_train,E_tr];
+        E_curr = E_tr + lambda*(norm(P,'fro')^2 + norm(Q,'fro')^2); 
+        E = [E, E_curr];
     end
     fclose(fid);
 end
