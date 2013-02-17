@@ -5,9 +5,9 @@ function [n,m,r] = readRatingLine(fid)
         m = -1;
         r = -1;
     else
-        vals = strsplit(txt,"\t",true);
-        n = str2num(vals{1,1});
-        m = str2num(vals{1,2});
-        r = str2num(vals{1,3});
+        [vals,cnt] = sscanf(txt,'%d\t%d\t%g');
+        n = vals(1);
+        m = vals(2);
+        r = vals(3);
     end
 end
