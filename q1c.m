@@ -16,7 +16,6 @@ for eta = etas
     errors1= [errors1; E];
 end
 errors1
-save('results_q1b.mat','errors1');
 toc
 
 %Q1.c
@@ -26,12 +25,14 @@ lambdas = [0.0 0.2];
 errors2= [];
 for lambda = lambdas
     for k = 1:10
+	tic;
         [P,Q,E_train,E] = sgd('ratings.train.txt',N,M,R,k,eta,lambda,40);
-        E_tr = calculateError('ratings.train.txt',P,Q,lambda); 
-        E_te = calculateError('ratings.val.txt',P,Q,lambda);
+        E_tr = calculateError('ratings.train.txt',P,Q); 
+        E_te = calculateError('ratings.val.txt',P,Q);
         [lambda k E_tr E_te]
+	toc
         errors2 = [errors2;lambda k E_tr E_te];
     end
 end
 errors2
-save('results_q1c.mat','errors2');
+save('results_q1bc.mat','errors1','errors2');
