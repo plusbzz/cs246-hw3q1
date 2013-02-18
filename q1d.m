@@ -6,20 +6,20 @@ mu = sum/cnt
 toc
 
 
-% %Q1.d.b
-% 
-% k = 20;
-% etas = [0.01 0.03];
-% lambda = 0.2;
-% tic;
-% errors1 = [];
-% for eta = etas
-%     [P,Q,Bu,Bi,E_train,E] = sgd('ratings.train.txt',N,M,R,k,mu,eta,lambda,40);
-%     errors1= [errors1; E];
-%     E
-% end
-% errors1
-% toc
+%Q1.d.b
+
+k = 20;
+etas = [0.01 0.03];
+lambda = 0.2;
+tic;
+errors1 = [];
+for eta = etas
+    [P,Q,Bu,Bi,E_train,E] = sgd('ratings.train.txt',N,M,R,k,mu,eta,lambda,40);
+    errors1= [errors1; E];
+    E
+end
+errors1
+toc
 
 %Q1.d.c
 eta = 0.03;
@@ -32,7 +32,8 @@ for lambda = lambdas
         [P,Q,Bu,Bi,E_train,E] = sgd('ratings.train.txt',N,M,R,k,mu,eta,lambda,40);
         E_tr = calculateError('ratings.train.txt',P,Q,mu,Bu,Bi); 
         E_te = calculateError('ratings.val.txt',P,Q,mu,Bu,Bi);
-        [lambda k E_tr E_te toc]
+        [lambda k E_tr E_te]
+        toc
         errors2 = [errors2;lambda k E_tr E_te];
     end
 end
