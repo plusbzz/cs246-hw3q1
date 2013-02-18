@@ -1,4 +1,4 @@
-%Q1.b
+%Q1.d.b
 
 k = 20;
 etas = [0.01 0.03];
@@ -19,7 +19,7 @@ errors1
 save('results_q1b.mat','errors1');
 toc
 
-%Q1.c
+%Q1.d.c
 eta = 0.03;
 lambdas = [0.0 0.2];
 
@@ -35,3 +35,5 @@ for lambda = lambdas
 end
 errors2
 save('results_q1c.mat','errors2');
+
+.
