@@ -1,4 +1,4 @@
-function E = calculateError(fname,P,Q,lambda)
+function E = calculateError(fname,P,Q,mu,Bu,Bi,lambda)
     fid = fopen (fname);
     E = 0;
     k = size(Q,2);
@@ -9,7 +9,10 @@ function E = calculateError(fname,P,Q,lambda)
         end
         p = P(i,1:k);
         q = Q(u,1:k);
-        E = E + (r - q*p')^2;
+        bu = Bu(u,1);
+        bi = Bi(i,1);
+        
+        E = E + (r - mu - bu - bi - q*p')^2;
     end
     fclose(fid);       
 end

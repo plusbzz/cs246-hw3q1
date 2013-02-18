@@ -1,4 +1,4 @@
-function [R,N,M] = findMaxIndex(fname, maxR, maxN, maxM)
+function [R,N,M,sum,cnt] = findMaxIndex(fname, maxR, maxN, maxM,sum,cnt)
     M = maxM;
     N = maxN;
     R = maxR;
@@ -24,6 +24,8 @@ function [R,N,M] = findMaxIndex(fname, maxR, maxN, maxM)
             if currR > R
                 R = currR;
             end;
+            cnt = cnt + 1;
+            sum = sum + currR;
         end
         buffer = reshape(fscanf(fid, '%d\t%d\t%g', bufferSize),3,[])' ;
     end
