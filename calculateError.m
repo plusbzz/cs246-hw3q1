@@ -7,11 +7,11 @@ function E = calculateError(fname,P,Q,mu,Bu,Bi)
     while ~isempty(buffer)
         for ix = 1:size(buffer,1)
             vals = buffer(ix,:);
-            i = vals(1);
-            u = vals(2);
+            u = vals(1);
+            i = vals(2);
             r = vals(3);
-            p = P(i,1:k);
-            q = Q(u,1:k);
+            p = P(u,1:k);
+            q = Q(i,1:k);
             bu = Bu(u,1);
             bi = Bi(i,1);
             E = E + (r - mu - bu - bi - q*p')^2;
