@@ -9,7 +9,7 @@ toc
 %Q1.d.b
 
 k = 20;
-etas = [0.01 0.03];
+etas = [0.01 0.03 0.1 0.3];
 lambda = 0.2;
 tic;
 errors1 = [];
